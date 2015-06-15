@@ -7,7 +7,6 @@ warning('off','all');
 startTwoEars('Config.xml');
 
 % Different angles the sound source is placed at
-%sourceAngles = 0:1:359;
 sourceAngles = [0 90 180 270];
 
 % === Initialise binaural simulator
@@ -18,19 +17,6 @@ sim.LengthOfSimulation = 3;
 
 printLocalisationTableHeader();
 
-% === Initialise model w head rotations
-%bbsw = BlackboardSystem(0);
-%bbsw.setRobotConnect(sim);
-%bbsw.buildFromXml('Blackboard.xml');
-
-% === Initialise model wo head rotations
-%bbswo = BlackboardSystem(0);
-%bbswo.setRobotConnect(sim);
-%bbswo.buildFromXml('BlackboardNoHeadRotation.xml');
-
-% FIXME: the creation of the blackboards should be done outside of the loop in my opinion.
-% This is not working at the moment, see: https://dev.qu.tu-berlin.de/issues/1875 and the
-% mail to the wp3 mailing list.
 for direction = sourceAngles
 
     sim.Sources{1}.set('Azimuth', direction);
@@ -47,6 +33,7 @@ for direction = sourceAngles
     [predictedAzimuth1, localisationError1] = ...
         evaluateLocalisationResults(predictedLocations, direction);
 
+    % Reset binaural simulation
     sim.rotateHead(0, 'absolute');
     sim.ReInit = true;
 
@@ -86,6 +73,5 @@ end
 function printLocalisationTableFooter()
     fprintf(1, '------------------------------------------------------------------\n');
 end
-
 
 % vim: set sw=4 ts=4 expandtab textwidth=90 :
