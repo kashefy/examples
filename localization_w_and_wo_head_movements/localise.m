@@ -13,7 +13,6 @@ sourceAngles = [0 90 180 270];
 sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
 sim.Verbose = false;
 sim.Init = true;
-sim.LengthOfSimulation = 3;
 
 printLocalisationTableHeader();
 
