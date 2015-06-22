@@ -9,39 +9,37 @@ startTwoEars('Config.xml');
 % Different angles the sound source is placed at
 sourceAngles = [0 88 175 257];
 
-% === Initialise binaural simulator
-simQu = simulator.SimulatorConvexRoom('SceneDescriptionQU.xml');
-simQu.Verbose = false;
-simQu.Init = true;
-simMit = simulator.SimulatorConvexRoom('SceneDescriptionMIT.xml');
-simMit.Verbose = false;
-simMit.Init = true;
-
 printLocalisationTableHeader();
 
 for direction = sourceAngles
 
     % Localisation using QU KEMAR HRTFs
-    simQu.Sources{1}.set('Azimuth', direction);
-    simQu.rotateHead(0, 'absolute');
-    simQu.ReInit = true;
+    sim = simulator.SimulatorConvexRoom('SceneDescriptionQU.xml');
+    sim.Verbose = false;
+    sim.Sources{1}.set('Azimuth', direction);
+    sim.rotateHead(0, 'absolute');
+    sim.Init = true;
     bbs = BlackboardSystem(0);
-    bbs.setRobotConnect(simQu);
+    bbs.setRobotConnect(sim);
     bbs.buildFromXml('BlackboardQU.xml');
     bbs.run();
     predictedLocations = bbs.blackboard.getData('perceivedLocations');
     predictedAzimuthQu = evaluateLocalisationResults(predictedLocations, direction);
+    sim.ShutDown = true;
 
     % Localisation using MIT KEMAR HRTFs
-    simMit.Sources{1}.set('Azimuth', direction);
-    simMit.rotateHead(0, 'absolute');
-    simMit.ReInit = true;
+    sim = simulator.SimulatorConvexRoom('SceneDescriptionMIT.xml');
+    sim.Verbose = false;
+    sim.Sources{1}.set('Azimuth', direction);
+    sim.rotateHead(0, 'absolute');
+    sim.Init = true;
     bbs = BlackboardSystem(0);
-    bbs.setRobotConnect(simMit);
+    bbs.setRobotConnect(sim);
     bbs.buildFromXml('BlackboardMIT.xml');
     bbs.run();
     predictedLocations = bbs.blackboard.getData('perceivedLocations');
     predictedAzimuthMit = evaluateLocalisationResults(predictedLocations, direction);
+    sim.ShutDown = true;
 
     printLocalisationTableColumn(direction, predictedAzimuthQu, predictedAzimuthMit);
 
@@ -49,7 +47,6 @@ end
 
 printLocalisationTableFooter();
 
-sim.ShutDown = true;
 
 end % of main function
 
