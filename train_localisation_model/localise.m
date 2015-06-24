@@ -7,7 +7,7 @@ warning('off','all');
 startTwoEars('Config.xml');
 
 % Different angles the sound source is placed at
-sourceAngles = [0 88 175 257];
+sourceAngles = [30 88 160 257];
 
 printLocalisationTableHeader();
 
@@ -28,7 +28,7 @@ for direction = sourceAngles
     sim.ShutDown = true;
 
     % Localisation using MIT KEMAR HRTFs
-    sim = simulator.SimulatorConvexRoom('SceneDescriptionMIT.xml');
+    sim = simulator.SimulatorConvexRoom('SceneDescriptionQU.xml');
     sim.Verbose = false;
     sim.Sources{1}.set('Azimuth', direction);
     sim.rotateHead(0, 'absolute');
