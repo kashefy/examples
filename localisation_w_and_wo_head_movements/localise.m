@@ -7,7 +7,7 @@ warning('off','all');
 startTwoEars('Config.xml');
 
 % Different angles the sound source is placed at
-sourceAngles = [0 90 180 270];
+sourceAngles = [0 33 76 239];
 
 % === Initialise binaural simulator
 sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
@@ -23,25 +23,26 @@ for direction = sourceAngles
     sim.ReInit = true;
 
     % LocationKS with head rotation for confusion solving
-    bbsw = BlackboardSystem(0);
-    bbsw.setRobotConnect(sim);
-    bbsw.buildFromXml('Blackboard.xml');
-    bbsw.run();
+    bbs = BlackboardSystem(0);
+    bbs.setRobotConnect(sim);
+    bbs.buildFromXml('Blackboard.xml');
+    bbs.run();
     % Evaluate localization results
-    predictedLocations = bbsw.blackboard.getData('perceivedLocations');
+    predictedLocations = bbs.blackboard.getData('perceivedLocations');
     [predictedAzimuth1, localisationError1] = ...
         evaluateLocalisationResults(predictedLocations, direction);
+    %displayLocalisationResults(predictedLocations, direction)
 
     % Reset binaural simulation
     sim.rotateHead(0, 'absolute');
     sim.ReInit = true;
 
     % LocationKS without head rotation and confusion solving
-    bbswo = BlackboardSystem(0);
-    bbswo.setRobotConnect(sim);
-    bbswo.buildFromXml('BlackboardNoHeadRotation.xml');
-    bbswo.run();
-    predictedLocations = bbswo.blackboard.getData('perceivedLocations');
+    bbs = BlackboardSystem(0);
+    bbs.setRobotConnect(sim);
+    bbs.buildFromXml('BlackboardNoHeadRotation.xml');
+    bbs.run();
+    predictedLocations = bbs.blackboard.getData('perceivedLocations');
     [predictedAzimuth2, localisationError2] = ...
         evaluateLocalisationResults(predictedLocations, direction);
 

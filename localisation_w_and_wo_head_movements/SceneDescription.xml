@@ -4,9 +4,9 @@
   SampleRate="44100"
   MaximumDelay="0.0"
   NumberOfThreads="1"
-  LengthOfSimulation = "3"
-  HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_3m.sofa">
-  <source Radius="3.0"
+  LengthOfSimulation = "5"
+  HRIRs="impulse_responses/scut_kemar_anechoic/SCUT_KEMAR_anechoic_1m.sofa">
+  <source Radius="1.0"
           Mute="false"
           Type="point"
           Name="SoundSource">
