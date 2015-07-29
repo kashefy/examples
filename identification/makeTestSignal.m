@@ -1,10 +1,14 @@
-function [sourceSignal, labels, onOffsets] = makeTestSignal( idModels )
+function [sourceSignal, labels, onOffsets] = makeTestSignal( idModels, otherTestFlist )
 
-[~, idModelVersion] = strtok(idModels(1).dir, '.');
-testFlist = [idModels(1).dir filesep 'testSet' idModelVersion '.flist'];
-% the testFlists of the different models loaded in THIS case are identical,
-% but in general the intersection of them would have to be formed as test set
-% to avoid using files that have been used in training of one of the models.
+if nargin < 2
+    [~, idModelVersion] = strtok(idModels(1).dir, '.');
+    testFlist = [idModels(1).dir filesep 'testSet' idModelVersion '.flist'];
+    % the testFlists of the different models loaded in THIS case are identical,
+    % but in general the intersection of them would have to be formed as test set
+    % to avoid using files that have been used in training of one of the models.
+else
+    testFlist = otherTestFlist;
+end
 
 [sourceFiles,nFiles] = readFileList(testFlist);
 sourceFiles = sourceFiles(randperm(nFiles));

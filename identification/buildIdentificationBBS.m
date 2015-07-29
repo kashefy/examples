@@ -10,4 +10,4 @@ end
 idCheat = bbs.createKS('IdTruthPlotKS', {labels, onOffsets});
 bbs.blackboardMonitor.bind({bbs.scheduler}, {bbs.dataConnect}, 'replaceOld', 'AgendaEmpty' );
 bbs.blackboardMonitor.bind({bbs.dataConnect}, idKss, 'replaceOld' );
-bbs.blackboardMonitor.bind(idKss, {idCheat}, 'replaceParallel' );
+bbs.blackboardMonitor.bind(idKss, {idCheat}, 'replaceParallelOld' );

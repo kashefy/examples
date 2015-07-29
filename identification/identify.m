@@ -4,12 +4,14 @@ function bbs = identify(idModels)
 if nargin < 1, idModels = setDefaultIdModels(); end
 
 %warning('off', 'all');
+disp( 'Initializing Two!Ears, setting up binaural simulator...' );
 
 % === Initialize Two!Ears model and check dependencies
 startTwoEars('Config.xml');
 
 % === load test sounds
-[sourceSignal, labels, onOffsets] = makeTestSignal(idModels);
+% leave away the second argument to use the whole testlist
+[sourceSignal, labels, onOffsets] = makeTestSignal(idModels, 'shortTest.flist');
 
 % === Initialise binaural simulator
 sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
@@ -21,7 +23,9 @@ sim.ReInit = true;
 sim.Sources{1}.setData(sourceSignal);
 
 % === Initialise and run model
+disp( 'Building blackboard system...' );
 bbs = buildIdentificationBBS(sim,idModels,labels,onOffsets);
+disp( 'Starting blackboard system.' );
 bbs.run();
 
 % === Evaluate scores

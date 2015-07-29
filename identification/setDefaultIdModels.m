@@ -10,5 +10,3 @@ idModels(4).name = 'knock';
 idModels(4).dir = 'Training.2015.07.24.01.18.1.271';
 idModels(5).name = 'clearthroat';
 idModels(5).dir = 'Training.2015.07.24.00.23.42.772';
-idModels(6).name = 'keys';
-idModels(6).dir = 'Training.2015.07.24.01.16.11.392';
