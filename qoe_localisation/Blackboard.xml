@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blackboardsystem>
+
+    <dataConnection Type="AuditoryFrontEndKS"/>
+
+    <KS Name="location" Type="LocationKS">
+        <Param Type="char">default</Param>
+    </KS>
+    <KS Name="confusion" Type="ConfusionKS"/>
+    <KS Name="confusionSolving" Type="ConfusionSolvingKS"/>
+    <KS Name="rotation" Type="RotationKS">
+        <Param Type="ref">robotConnect</Param>
+    </KS>
+
+    <Connection Mode="replaceOld" Event="AgendaEmpty">
+        <source>scheduler</source>
+        <sink>dataConnect</sink>
+    </Connection>
+    <Connection Mode="replaceOld">
+        <source>dataConnect</source>
+        <sink>location</sink>
+    </Connection>
+    <Connection Mode="add">
+        <source>location</source>
+        <sink>confusion</sink>
+    </Connection>
+    <Connection Mode="replaceOld" Event="ConfusedLocations">
+        <source>confusion</source>
+        <sink>rotation</sink>
+    </Connection>
+    <Connection Mode="add" Event="ConfusedLocations">
+        <source>confusion</source>
+        <sink>confusionSolving</sink>
+    </Connection>
+
+</blackboardsystem>
