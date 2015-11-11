@@ -76,7 +76,7 @@ end
 %% ===== Plot results ====================================================
 figure
 hold on
-conditions = {'ref', 'stereo', '67 cm', '34 cm', '17 cm', '8 cm', '4 cm', '2 cm', ...
+conditions = {'ref', 'stereo', '75 cm', '38 cm', '18 cm', '9 cm', '4 cm', '2 cm', ...
               '1 cm', 'anchor'};
 colors = {'b','g','r'};
 for ii = 1:length(sourceFiles)
