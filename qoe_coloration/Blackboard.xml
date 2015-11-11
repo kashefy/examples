@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blackboardsystem>
+
+    <dataConnection Type="AuditoryFrontEndKS"/>
+
+    <KS Name="coloration" Type="ColorationKS"/>
+
+    <Connection Mode="replaceOld" Event="AgendaEmpty">
+        <source>scheduler</source>
+        <sink>dataConnect</sink>
+    </Connection>
+    <Connection Mode="replaceOld">
+        <source>dataConnect</source>
+        <sink>coloration</sink>
+    </Connection>
+
+</blackboardsystem>
