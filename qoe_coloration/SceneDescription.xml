@@ -3,7 +3,7 @@
   BlockSize="48000"
   SampleRate="48000"
   NumberOfThreads="3"
-  LengthOfSimulation = "3"
+  LengthOfSimulation = "5"
   Renderer="ssr_brs">
   <source Type="point"
       Name="Reference"
