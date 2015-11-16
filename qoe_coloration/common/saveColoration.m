@@ -18,8 +18,8 @@ for ii = 1:length(sourceTypes)
                         arrayType, listenerPosition, sourceTypes{ii}), 'w');
     fprintf(fid, '# system, human_label, confidence_interval, model\n');
     for jj = 1:size(humanLabels,1)
-        fprintf(fid, '"%s", %5.2f, %5.2f, %5.2f, %5.2f\n', humanLabels{jj,1}, ...
-                humanLabels{jj,2}, humanLabels{jj,3}, prediction(ii,jj));
+        fprintf(fid, '"%s", %5.2f, %5.2f, %5.2f\n', humanLabels{jj,1}, ...
+                humanLabels{jj,2}, humanLabels{jj,3}, prediction(ii,jj)*2-1);
     end
     fclose(fid);
 end
