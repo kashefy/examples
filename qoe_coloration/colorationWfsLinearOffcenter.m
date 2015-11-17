@@ -28,7 +28,7 @@ sim = setupBinauralSimulator();
 
 % Run the Blackboard System and the ColorationKS to estimate the coloration rating,
 % see common/estimateColoration.m
-prediction = estimateColoration(sim, sourceFiles, humanLabelFiles);
+prediction = estimateColoration(sim, sourceFiles, sourceTypes, humanLabelFiles);
 
 % Plot the ratings from the listening test together with the predictions,
 % see common/plotColoration.m

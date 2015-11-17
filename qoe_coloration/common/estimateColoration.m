@@ -1,4 +1,4 @@
-function prediction = estimateColoration(sim, sourceFiles, humanLabelFiles)
+function prediction = estimateColoration(sim, sourceFiles, sourceTypes, humanLabelFiles)
 %estimateColoration runs the Two!Ears Blackboard Systems Coloration knowledge
 %                   source in order to predict the coloration for the specified
 %                   conditions
@@ -9,6 +9,7 @@ function prediction = estimateColoration(sim, sourceFiles, humanLabelFiles)
 %   INPUT PARAMETERS
 %       sim             - Binaural Simulator object
 %       sourceFiles     - Cell containing all audio source files
+%       sourceTypes     - Cell containing all audio source types
 %       humanLabelFiles - Cell containing all human labels from the listening
 %                         experiment
 %
@@ -37,7 +38,11 @@ for ii = 1:length(sourceFiles)
     sim.Init = true;
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);
-    bbs.buildFromXml('Blackboard.xml');
+    bbs.setDataConnect('AuditoryFrontEndKS');
+    ColorationKS = bbs.createKS('ColorationKS', {sourceTypes{ii}});
+    bbs.blackboardMonitor.bind({bbs.scheduler}, {bbs.dataConnect}, 'replaceOld', ...
+                               'AgendaEmpty' );
+    bbs.blackboardMonitor.bind({bbs.dataConnect}, {ColorationKS}, 'replaceOld' );
     bbs.run(); % The ColorationKS runs automatically until the end of the signal
     sim.ShutDown = true;
 
@@ -57,4 +62,6 @@ for ii = 1:length(sourceFiles)
 end
 
 % Scale predictions to be in the range ~ 0..1
-prediction = prediction ./ 3.5;
+prediction = prediction ./ 2.5;
+
+% vim: set sw=4 ts=4 et tw=90:
