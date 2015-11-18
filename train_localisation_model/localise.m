@@ -59,9 +59,7 @@ end
 
 function printLocalisationTableColumn(direction, azimuth1, azimuth2)
     fprintf(1, '%4.0f \t\t\t %4.0f \t\t\t %4.0f\n', ...
-            azimuthInPlusMinus180(direction), ...
-            azimuthInPlusMinus180(azimuth1), ...
-            azimuthInPlusMinus180(azimuth2));
+            wrapTo180(direction), wrapTo180(azimuth1), wrapTo180(azimuth2));
 end
 
 function printLocalisationTableFooter()
