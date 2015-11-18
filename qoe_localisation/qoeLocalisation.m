@@ -83,7 +83,7 @@ for jj = 1:length(humanLabelFiles)
         % Setup blackboard system
         bbs = BlackboardSystem(0);
         bbs.setRobotConnect(sim);
-        bbs.buildFromXml('Blackboard.xml');
+        bbs.buildFromXml('BlackboardNoHeadRotation.xml');
         % Run blackboard
         bbs.run();
 
