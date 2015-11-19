@@ -52,12 +52,10 @@ for ii = 1:length(sourceFiles)
         sim.Sources{1}.setData(sourceMaterial);
         sim.Init = true;
         bbs.run()
-        prediction(ii,jj) = bbs.blackboard.getLastData('colorationHypotheses').data;
-        sim.Sinks.getData();
+        prediction(ii,jj) = ...
+            bbs.blackboard.getLastData('colorationHypotheses').data.differenceValue;
         sim.ShutDown = true;
     end
-    % Scale predictions to be in the range 0..1
-    %prediction(ii,:) = prediction(ii,:)./max(prediction(ii,:));
 
 end
 
