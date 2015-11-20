@@ -15,6 +15,8 @@
 "hoa_nls14_order28_X-1.00_Y-0.75_src_ps_xs0.00_ys2.50", 	 -1.00, -0.75,  -17,   -0
 "hoa_nls14_order28_X-1.00_Y0.75_src_ps_xs0.00_ys2.50", 	 -1.00,  0.75,  -27,    3
 "hoa_nls14_order28_X-1.25_Y0.00_src_ps_xs0.00_ys2.50", 	 -1.25,  0.00,  -25,    2
+
+
 "hoa_nls14_order7_X0.00_Y0.00_src_ps_xs0.00_ys2.50", 	  0.00,  0.00,    1,    1
 "hoa_nls14_order7_X0.00_Y-0.75_src_ps_xs0.00_ys2.50", 	  0.00, -0.75,    0,    0
 "hoa_nls14_order7_X0.00_Y0.75_src_ps_xs0.00_ys2.50", 	  0.00,  0.75,   -0,   -0
@@ -31,6 +33,8 @@
 "hoa_nls14_order7_X-1.00_Y-0.75_src_ps_xs0.00_ys2.50", 	 -1.00, -0.75,  -11,    6
 "hoa_nls14_order7_X-1.00_Y0.75_src_ps_xs0.00_ys2.50", 	 -1.00,  0.75,  -23,    6
 "hoa_nls14_order7_X-1.25_Y0.00_src_ps_xs0.00_ys2.50", 	 -1.25,  0.00,  -13,   14
+
+
 "hoa_nls28_order14_X0.00_Y0.00_src_ps_xs0.00_ys2.50", 	  0.00,  0.00,    1,    1
 "hoa_nls28_order14_X0.00_Y-0.75_src_ps_xs0.00_ys2.50", 	  0.00, -0.75,    1,    1
 "hoa_nls28_order14_X0.00_Y0.75_src_ps_xs0.00_ys2.50", 	  0.00,  0.75,    1,    1
@@ -47,6 +51,8 @@
 "hoa_nls28_order14_X-1.00_Y-0.75_src_ps_xs0.00_ys2.50", 	 -1.00, -0.75,  -15,    2
 "hoa_nls28_order14_X-1.00_Y0.75_src_ps_xs0.00_ys2.50", 	 -1.00,  0.75,  -19,   11
 "hoa_nls28_order14_X-1.25_Y0.00_src_ps_xs0.00_ys2.50", 	 -1.25,  0.00,  -23,    4
+
+
 "hoa_nls56_order28_X0.00_Y0.00_src_ps_xs0.00_ys2.50", 	  0.00,  0.00,    1,    1
 "hoa_nls56_order28_X0.00_Y-0.75_src_ps_xs0.00_ys2.50", 	  0.00, -0.75,    1,    1
 "hoa_nls56_order28_X0.00_Y0.75_src_ps_xs0.00_ys2.50", 	  0.00,  0.75,    1,    1
