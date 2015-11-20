@@ -40,6 +40,6 @@ title('linear array, center position');
 
 % Store prediction results in the same format as the human label files,
 % see common/saveColoration.m
-saveColoration('linear', 'center', prediction, sourceTypes, humanLabelFiles);
+saveColoration('wfs', 'linear', 'center', prediction, sourceTypes, humanLabelFiles);
 
 % vim: set sw=4 ts=4 et tw=90:

@@ -37,6 +37,6 @@ title('circular array, offcenter position');
 
 % Store prediction results in the same format as the human label files,
 % see common/saveColoration.m
-saveColoration('circular', 'offcenter', prediction, sourceTypes, humanLabelFiles);
+saveColoration('wfs', 'circular', 'offcenter', prediction, sourceTypes, humanLabelFiles);
 
 % vim: set sw=4 ts=4 et tw=90:
