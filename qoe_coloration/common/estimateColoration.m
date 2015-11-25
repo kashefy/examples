@@ -59,7 +59,4 @@ for ii = 1:length(sourceFiles)
 
 end
 
-% Scale predictions to be in the range ~ 0..1
-prediction = prediction ./ 2.5;
-
 % vim: set sw=4 ts=4 et tw=90:
