@@ -13,6 +13,8 @@ function saveColoration(sfsType, arrayType, listenerPosition, prediction, source
 %       sourceTypes         - cell containing names of audio source material
 %       humanLabelFiles     - cell containing names of human label files
 
+% Store results under evaluation folder
+[~,~] = mkdir('evaluation');
 for ii = 1:length(sourceTypes)
     humanLabels = readHumanLabels(humanLabelFiles{ii});
     fid = fopen(sprintf('evaluation/coloration_%s_%s_%s_%s.csv', ...
