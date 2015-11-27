@@ -1,4 +1,4 @@
-%function qoeLocalisation()
+function qoeLocalisation()
 % qoeLocalisation() computes directions of auditory event of synthesized sound fields and
 %                   compares them to humam data from listening experiments
 %
@@ -141,11 +141,11 @@ x0 = [ ...
     1.4158   -0.4954
     1.4624   -0.3338
     1.4906   -0.1679];
-figure('Position', [100, 100, 1300, 900]);
+figure('Position', [100, 100, 800, 550]);
 % listening test
 [u,v] = pol2cart(deg2rad(perceivedAzimuth+90), ones(1,48));
 subplot(2,3,1);
-quiver(X(1:16), Y(1:16), u(1:16), v(1:16), 0.5, 'LineWidth', 2); hold on
+quiver(X(1:16), Y(1:16), u(1:16), v(1:16), 0.5, 'LineWidth', 1); hold on
 plot(x0(1:4:end,1), x0(1:4:end,2), 'ok', 'MarkerFaceColor', 'k', 'MarkerSize', 3);
 axis equal
 axis([-2.3 2.3 -2 2.6])
@@ -153,7 +153,7 @@ title('experiment, 14 loudsp.');
 xlabel('x/m');
 ylabel('y/m');
 subplot(2,3,2);
-quiver(X(17:32), Y(17:32), u(17:32), v(17:32), 0.5, 'LineWidth', 2); hold on
+quiver(X(17:32), Y(17:32), u(17:32), v(17:32), 0.5, 'LineWidth', 1); hold on
 plot(x0(1:2:end,1), x0(1:2:end,2), 'ok', 'MarkerFaceColor', 'k', 'MarkerSize', 3);
 axis equal
 axis([-2.3 2.3 -2 2.6])
@@ -161,7 +161,7 @@ title('experiment, 28 loudsp.');
 xlabel('x/m');
 ylabel('y/m');
 subplot(2,3,3);
-quiver(X(33:48), Y(33:48), u(33:48), v(33:48),0.5, 'LineWidth', 2); hold on
+quiver(X(33:48), Y(33:48), u(33:48), v(33:48),0.5, 'LineWidth', 1); hold on
 plot(x0(:,1), x0(:,2), 'ok', 'MarkerFaceColor', 'k', 'MarkerSize', 3);
 axis equal
 axis([-2.3 2.3 -2 2.6])
@@ -171,7 +171,7 @@ ylabel('y/m');
 % model
 [u,v,~] = pol2cart(deg2rad(predictedAzimuth+90),ones(1,48),zeros(1,48));
 subplot(2,3,4);
-quiver(X(1:16), Y(1:16), u(1:16), v(1:16), 0.5, 'LineWidth', 2); hold on
+quiver(X(1:16), Y(1:16), u(1:16), v(1:16), 0.5, 'LineWidth', 1); hold on
 plot(x0(1:4:end,1), x0(1:4:end,2), 'ok', 'MarkerFaceColor', 'k', 'MarkerSize', 3);
 axis equal
 axis([-2.3 2.3 -2 2.6])
@@ -179,7 +179,7 @@ title('model, 14 loudsp.');
 xlabel('x/m');
 ylabel('y/m');
 subplot(2,3,5);
-quiver(X(17:32), Y(17:32), u(17:32), v(17:32), 0.5, 'LineWidth', 2); hold on
+quiver(X(17:32), Y(17:32), u(17:32), v(17:32), 0.5, 'LineWidth', 1); hold on
 plot(x0(1:2:end,1), x0(1:2:end,2), 'ok', 'MarkerFaceColor', 'k', 'MarkerSize', 3);
 axis equal
 axis([-2.3 2.3 -2 2.6])
@@ -187,7 +187,7 @@ title('model, 28 loudsp.');
 xlabel('x/m');
 ylabel('y/m');
 subplot(2,3,6);
-quiver(X(33:48), Y(33:48), u(33:48), v(33:48), 0.5, 'LineWidth', 2); hold on
+quiver(X(33:48), Y(33:48), u(33:48), v(33:48), 0.5, 'LineWidth', 1); hold on
 plot(x0(:,1), x0(:,2), 'ok', 'MarkerFaceColor', 'k', 'MarkerSize', 3);
 axis equal
 axis([-2.3 2.3 -2 2.6])
@@ -195,7 +195,5 @@ title('model, 56 loudsp.');
 xlabel('x/m');
 ylabel('y/m');
 
-
-print('wfs_localisation_prediction.png','-dpng','-r75');
 
 % vim: set sw=4 ts=4 expandtab textwidth=90 :
