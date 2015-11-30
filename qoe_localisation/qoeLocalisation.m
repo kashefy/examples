@@ -49,14 +49,14 @@ for ii = 1:size(humanLabels, 1)
     sim = simulator.SimulatorConvexRoom(binSimFile);
     sim.Sources{1}.IRDataset = simulator.DirectionalIR(brsFile); % load BRS file
     sim.Verbose = false;
-    sim.Init = true;
     sim.LengthOfSimulation = 5;
     sim.rotateHead(0, 'absolute');
+    sim.Init = true;
 
     % Setup blackboard system
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);
-    bbs.buildFromXml('BlackboardNoHeadRotation.xml');
+    bbs.buildFromXml('Blackboard.xml');
     % Run blackboard
     bbs.run();
 
