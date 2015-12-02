@@ -1,9 +1,10 @@
-function qoeLocalisation()
-% qoeLocalisation() computes directions of auditory event of synthesized sound fields and
-%                   compares them to humam data from listening experiments
+function localisationWfsCircularPointSource()
+% localisationWfsCircularPointSource() computes directions of auditory event of
+%                                      synthesized sound fields and compares them
+%                                      to humam data from listening experiments
 %
 %   USAGE
-%       qoeLocalisation()
+%       localisationWfsCircularPointSource()
 %
 
 
