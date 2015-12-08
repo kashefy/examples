@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blackboardsystem>
 
-    <dataConnection Type="AuditoryFrontEndKS"/>
+    <dataConnection Type="AuditoryFrontEndKS">
+       <Param Type="double">16000</Param>
+    </dataConnection>
 
-    <KS Name="loc" Type="DNNLocationKS" />
+    <KS Name="loc" Type="DNNLocationKS">
+        <Param Type="int">16</Param>
+    </KS>
     <KS Name="conf" Type="ConfusionKS"/>
     <KS Name="confSolv" Type="ConfusionSolvingKS"/>
     <KS Name="rot" Type="RotationKS">
