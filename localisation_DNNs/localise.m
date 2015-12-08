@@ -7,8 +7,7 @@ warning('off','all');
 startTwoEars('Config.xml');
 
 % Different angles the sound source is placed at
-sourceAngles = -50:10:50;
-sourceAngles = convertAzimuthsSurreyToWP1(sourceAngles);
+sourceAngles = -90:10:90;
 
 % === Initialise binaural simulator
 sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
