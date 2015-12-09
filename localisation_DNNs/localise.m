@@ -6,21 +6,31 @@ warning('off','all');
 % Initialize Two!Ears model and check dependencies
 startTwoEars('Config.xml');
 
-% Different angles the sound source is placed at
-sourceAngles = -90:10:90;
+% Different source positions given by BRIRs
+% see:
+% http://twoears.aipa.tu-berlin.de/doc/latest/database/impulse-responses/#tu-berlin-telefunken-building-room-auditorium-3
+brirs = { ...
+    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa'; ...
+    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa'; ...
+    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa'; ...
+    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa'; ...
+    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa'; ...
+    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa'; ...
+    };
+sourceAngles = [0, -51.5, -131.4, 0, 30, -30];
 
 % === Initialise binaural simulator
-sim = simulator.SimulatorConvexRoom('SceneDescription.xml');
-sim.Verbose = false;
-sim.Init = true;
+sim = setupBinauralSimulator();
 
 printLocalisationTableHeader();
 
-for direction = sourceAngles
+for ii = 1:length(sourceAngles)
 
-    sim.Sources{1}.set('Azimuth', direction);
+    direction = sourceAngles(ii);
+
+    sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
     sim.rotateHead(0, 'absolute');
-    sim.ReInit = true;
+    sim.Init = true;
 
     % LocationKS with head rotation for confusion solving
     bbs = BlackboardSystem(0);
@@ -48,11 +58,11 @@ for direction = sourceAngles
 
     printLocalisationTableColumn(direction, predictedAzimuth1, predictedAzimuth2);
 
+    sim.ShutDown = true;
 end
 
 printLocalisationTableFooter();
 
-sim.ShutDown = true;
 
 end % of main function
 
