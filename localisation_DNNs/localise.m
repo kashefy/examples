@@ -34,29 +34,13 @@ for ii = 1:length(sourceAngles)
     sim.rotateHead(headOrientation, 'absolute');
     sim.Init = true;
 
-    % LocationKS with head rotation for confusion solving
-    bbs = BlackboardSystem(0);
-    bbs.setRobotConnect(sim);
-    bbs.buildFromXml('Blackboard.xml');
-    bbs.run();
-    % Evaluate localization results
-    predictedLocations = bbs.blackboard.getData('perceivedLocations');
-    [predictedAzimuth1] = ...
-        evaluateLocalisationResults(predictedLocations, direction);
-    %displayLocalisationResults(predictedLocations, direction)
-
-    % Reset binaural simulation
-    sim.rotateHead(headOrientation, 'absolute');
-    sim.ReInit = true;
-
-    % LocationKS without head rotation and confusion solving
-    bbs = BlackboardSystem(0);
-    bbs.setRobotConnect(sim);
-    bbs.buildFromXml('BlackboardNoHeadRotation.xml');
-    bbs.run();
-    predictedLocations = bbs.blackboard.getData('perceivedLocations');
-    [predictedAzimuth2] = ...
-        evaluateLocalisationResults(predictedLocations, direction);
+    phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');                % DNNLocationKS w head movements
+    resetBinauralSimulator(sim, headOrientation);
+    phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DNNLocationKS wo head movements
+    resetBinauralSimulator(sim, headOrientation);
+    phi3 = estimateAzimuth(sim, 'BlackboardGmm.xml');                % LocationKS w head movements
+    resetBinauralSimulator(sim, headOrientation);
+    phi3 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');  % LocationKS wo head movements
 
     printLocalisationTableColumn(direction, ...
                                  predictedAzimuth1 - headOrientation, ...
@@ -72,18 +56,19 @@ end % of main function
 
 function printLocalisationTableHeader()
     fprintf('\n');
-    fprintf('------------------------------------------------------------------\n');
-    fprintf('Source direction        Model w head rot.       Model wo head rot.\n');
-    fprintf('------------------------------------------------------------------\n');
+    fprintf('-----------------------------------------------------------------------------------------------------------------------------------------------\n');
+    fprintf('Source direction       DnnLocationKS w head rot.      DnnLocationKS wo head rot.      GmmLocationKS w head rot.      GmmLocationKS wo head rot.\n');
+    fprintf('-----------------------------------------------------------------------------------------------------------------------------------------------\n');
 end
 
 function printLocalisationTableColumn(direction, azimuth1, azimuth2)
-    fprintf('%4.0f \t\t\t %4.0f \t\t\t %4.0f\n', ...
-            wrapTo180(direction), wrapTo180(azimuth1), wrapTo180(azimuth2));
+    fprintf('%4.0f \t\t\t %4.0f \t\t\t %4.0f \t\t\t %4.0f \t\t\t %4.0f\n', ...
+            wrapTo180(direction), wrapTo180(phi1), wrapTo180(phi2), ...
+            wrapTo180(phi3), wrapTo180(phi4));
 end
 
 function printLocalisationTableFooter()
-    fprintf('------------------------------------------------------------------\n');
+    fprintf('----------------------------------------------------------------------------------------------------------------------------------------------\n');
 end
 
 % vim: set sw=4 ts=4 expandtab textwidth=90 :
