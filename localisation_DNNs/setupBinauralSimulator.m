@@ -1,10 +1,10 @@
 function sim = setupBinauralSimulator()
-%initialiseBinauralSimulator starts the Binaural SImulator and applies all common
-%                            settings, like position of listener and length of
-%                            simulation
+%setupBinauralSimulator starts the Binaural SImulator and applies all common
+%                       settings, like position of listener and length of
+%                       simulation
 %
 %   USAGE
-%       sim = initialiseBinauralSimulator()
+%       sim = setupBinauralSimulator()
 %
 %   OUTPUT PARAMETERS
 %       sim  - Binaural Simulator object
