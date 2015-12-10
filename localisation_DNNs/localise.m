@@ -18,8 +18,8 @@ brirs = { ...
     'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa'; ...
     'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa'; ...
     };
-sourceAngles = [0, -51.5, -131.4, 0, 30, -30];
-initialHeadOrientation = 90; % towards y-axis
+headOrientation = 90; % towards y-axis (facing src1)
+sourceAngles = [90, 38.5, -41.4, 90, 120, 60] - headOrientation; % phi = atan2d(ys,xs)
 
 % === Initialise binaural simulator
 sim = setupBinauralSimulator();
@@ -31,7 +31,7 @@ for ii = 1:length(sourceAngles)
     direction = sourceAngles(ii);
 
     sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
-    sim.rotateHead(initialHeadOrientation, 'absolute');
+    sim.rotateHead(headOrientation, 'absolute');
     sim.Init = true;
 
     % LocationKS with head rotation for confusion solving
@@ -46,7 +46,7 @@ for ii = 1:length(sourceAngles)
     %displayLocalisationResults(predictedLocations, direction)
 
     % Reset binaural simulation
-    sim.rotateHead(initialHeadOrientation, 'absolute');
+    sim.rotateHead(headOrientation, 'absolute');
     sim.ReInit = true;
 
     % LocationKS without head rotation and confusion solving
@@ -58,7 +58,9 @@ for ii = 1:length(sourceAngles)
     [predictedAzimuth2, localisationError2] = ...
         evaluateLocalisationResults(predictedLocations, direction);
 
-    printLocalisationTableColumn(direction, predictedAzimuth1, predictedAzimuth2);
+    printLocalisationTableColumn(direction, ...
+                                 predictedAzimuth1 - headOrientation, ...
+                                 predictedAzimuth2 - headOrientation);
 
     sim.ShutDown = true;
 end
