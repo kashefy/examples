@@ -6,6 +6,7 @@ warning('off','all');
 % Initialize Two!Ears model and check dependencies
 startTwoEars('Config.xml');
 
+% === Configuration
 % Different source positions given by BRIRs
 % see:
 % http://twoears.aipa.tu-berlin.de/doc/latest/database/impulse-responses/#tu-berlin-telefunken-building-room-auditorium-3
@@ -18,6 +19,7 @@ brirs = { ...
     'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa'; ...
     };
 sourceAngles = [0, -51.5, -131.4, 0, 30, -30];
+initialHeadOrientation = 90; % towards y-axis
 
 % === Initialise binaural simulator
 sim = setupBinauralSimulator();
@@ -29,7 +31,7 @@ for ii = 1:length(sourceAngles)
     direction = sourceAngles(ii);
 
     sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
-    sim.rotateHead(0, 'absolute');
+    sim.rotateHead(initialHeadOrientation, 'absolute');
     sim.Init = true;
 
     % LocationKS with head rotation for confusion solving
@@ -44,7 +46,7 @@ for ii = 1:length(sourceAngles)
     %displayLocalisationResults(predictedLocations, direction)
 
     % Reset binaural simulation
-    sim.rotateHead(0, 'absolute');
+    sim.rotateHead(initialHeadOrientation, 'absolute');
     sim.ReInit = true;
 
     % LocationKS without head rotation and confusion solving
