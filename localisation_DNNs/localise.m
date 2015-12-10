@@ -40,11 +40,13 @@ for ii = 1:length(sourceAngles)
     resetBinauralSimulator(sim, headOrientation);
     phi3 = estimateAzimuth(sim, 'BlackboardGmm.xml');                % LocationKS w head movements
     resetBinauralSimulator(sim, headOrientation);
-    phi3 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');  % LocationKS wo head movements
+    phi4 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');  % LocationKS wo head movements
 
     printLocalisationTableColumn(direction, ...
-                                 predictedAzimuth1 - headOrientation, ...
-                                 predictedAzimuth2 - headOrientation);
+                                 phi1 - headOrientation, ...
+                                 phi2 - headOrientation, ...
+                                 phi3 - headOrientation, ...
+                                 phi4 - headOrientation);
 
     sim.ShutDown = true;
 end
@@ -61,7 +63,7 @@ function printLocalisationTableHeader()
     fprintf('-----------------------------------------------------------------------------------------------------------------------------------------------\n');
 end
 
-function printLocalisationTableColumn(direction, azimuth1, azimuth2)
+function printLocalisationTableColumn(direction, phi1, phi2, phi3, phi4)
     fprintf('%4.0f \t\t\t %4.0f \t\t\t %4.0f \t\t\t %4.0f \t\t\t %4.0f\n', ...
             wrapTo180(direction), wrapTo180(phi1), wrapTo180(phi2), ...
             wrapTo180(phi3), wrapTo180(phi4));
