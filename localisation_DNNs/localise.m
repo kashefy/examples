@@ -41,7 +41,7 @@ for ii = 1:length(sourceAngles)
     bbs.run();
     % Evaluate localization results
     predictedLocations = bbs.blackboard.getData('perceivedLocations');
-    [predictedAzimuth1, localisationError1] = ...
+    [predictedAzimuth1] = ...
         evaluateLocalisationResults(predictedLocations, direction);
     %displayLocalisationResults(predictedLocations, direction)
 
@@ -55,7 +55,7 @@ for ii = 1:length(sourceAngles)
     bbs.buildFromXml('BlackboardNoHeadRotation.xml');
     bbs.run();
     predictedLocations = bbs.blackboard.getData('perceivedLocations');
-    [predictedAzimuth2, localisationError2] = ...
+    [predictedAzimuth2] = ...
         evaluateLocalisationResults(predictedLocations, direction);
 
     printLocalisationTableColumn(direction, ...
@@ -71,19 +71,19 @@ printLocalisationTableFooter();
 end % of main function
 
 function printLocalisationTableHeader()
-    fprintf(1, '\n');
-    fprintf(1, '------------------------------------------------------------------\n');
-    fprintf(1, 'Source direction        Model w head rot.       Model wo head rot.\n');
-    fprintf(1, '------------------------------------------------------------------\n');
+    fprintf('\n');
+    fprintf('------------------------------------------------------------------\n');
+    fprintf('Source direction        Model w head rot.       Model wo head rot.\n');
+    fprintf('------------------------------------------------------------------\n');
 end
 
 function printLocalisationTableColumn(direction, azimuth1, azimuth2)
-    fprintf(1, '%4.0f \t\t\t %4.0f \t\t\t %4.0f\n', ...
+    fprintf('%4.0f \t\t\t %4.0f \t\t\t %4.0f\n', ...
             wrapTo180(direction), wrapTo180(azimuth1), wrapTo180(azimuth2));
 end
 
 function printLocalisationTableFooter()
-    fprintf(1, '------------------------------------------------------------------\n');
+    fprintf('------------------------------------------------------------------\n');
 end
 
 % vim: set sw=4 ts=4 expandtab textwidth=90 :
