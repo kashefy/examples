@@ -62,11 +62,11 @@ for ii = 1:size(humanLabels, 1)
     bbs.run();
 
     % Evaluate localization results
-    predictedLocations = bbs.blackboard.getData('perceivedLocations');
+    predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
     [predictedAzimuth(ii), localisationError(ii)] = ...
-        evaluateLocalisationResults(predictedLocations, physicalAzimuth(ii));
+        evaluateLocalisationResults(predictedAzimuths, physicalAzimuth(ii));
     predictedAzimuth(ii) = predictedAzimuth(ii) + headRotationOffset;
-    %displayLocalisationResults(predictedLocations, perceivedAzimuth);
+    %displayLocalisationResults(predictedAzimuths, perceivedAzimuth);
 
     sim.ShutDown = true;
 

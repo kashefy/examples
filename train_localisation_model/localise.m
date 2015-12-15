@@ -23,8 +23,8 @@ for direction = sourceAngles
     bbs.setRobotConnect(sim);
     bbs.buildFromXml('BlackboardQU.xml');
     bbs.run();
-    predictedLocations = bbs.blackboard.getData('perceivedLocations');
-    predictedAzimuthQu = evaluateLocalisationResults(predictedLocations, direction);
+    predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
+    predictedAzimuthQu = evaluateLocalisationResults(predictedAzimuths, direction);
     sim.ShutDown = true;
 
     % Localisation using MIT KEMAR HRTFs
@@ -37,8 +37,8 @@ for direction = sourceAngles
     bbs.setRobotConnect(sim);
     bbs.buildFromXml('BlackboardMIT.xml');
     bbs.run();
-    predictedLocations = bbs.blackboard.getData('perceivedLocations');
-    predictedAzimuthMit = evaluateLocalisationResults(predictedLocations, direction);
+    predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
+    predictedAzimuthMit = evaluateLocalisationResults(predictedAzimuths, direction);
     sim.ShutDown = true;
 
     printLocalisationTableColumn(direction, predictedAzimuthQu, predictedAzimuthMit);

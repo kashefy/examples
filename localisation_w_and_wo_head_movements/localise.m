@@ -28,10 +28,10 @@ for direction = sourceAngles
     bbs.buildFromXml('Blackboard.xml');
     bbs.run();
     % Evaluate localization results
-    predictedLocations = bbs.blackboard.getData('perceivedLocations');
+    predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
     [predictedAzimuth1, localisationError1] = ...
-        evaluateLocalisationResults(predictedLocations, direction);
-    %displayLocalisationResults(predictedLocations, direction)
+        evaluateLocalisationResults(predictedAzimuths, direction);
+    %displayLocalisationResults(predictedAzimuths, direction)
 
     % Reset binaural simulation
     sim.rotateHead(0, 'absolute');
@@ -42,9 +42,9 @@ for direction = sourceAngles
     bbs.setRobotConnect(sim);
     bbs.buildFromXml('BlackboardNoHeadRotation.xml');
     bbs.run();
-    predictedLocations = bbs.blackboard.getData('perceivedLocations');
+    predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
     [predictedAzimuth2, localisationError2] = ...
-        evaluateLocalisationResults(predictedLocations, direction);
+        evaluateLocalisationResults(predictedAzimuths, direction);
 
     printLocalisationTableColumn(direction, predictedAzimuth1, predictedAzimuth2);
 

@@ -3,18 +3,19 @@ function phi = estimateAzimuth(sim, blackboardConfig)
 %                Blackboard configuration file
 %
 %   USAGE
-%       estimateAzimuth(sim, blackboardConfig)
+%       phi = estimateAzimuth(sim, blackboardConfig)
 %
 %   INPUT PARAMETERS
 %       sim              - Binaural simulator object
 %       blackboardConfig - blackboard configuration xml file (string)
-
+%
+%   OUTPUT PARAMETERS
+%       phi              - estimated azimuth
 
 bbs = BlackboardSystem(0);
 bbs.setRobotConnect(sim);
 bbs.buildFromXml(blackboardConfig);
 bbs.run();
 % Evaluate localization results
-predictedLocations = bbs.blackboard.getData('perceivedLocations');
-phi = evaluateLocalisationResults(predictedLocations);
-%displayLocalisationResults(predictedLocations, direction)
+predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
+phi = evaluateLocalisationResults(predictedAzimuths);
