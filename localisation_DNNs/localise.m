@@ -34,9 +34,9 @@ for ii = 1:length(sourceAngles)
     sim.rotateHead(headOrientation, 'absolute');
     sim.Init = true;
 
-    phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');                % DNNLocationKS w head movements
+    phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');                % DnnLocationKS w head movements
     resetBinauralSimulator(sim, headOrientation);
-    phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DNNLocationKS wo head movements
+    phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DnnLocationKS wo head movements
     resetBinauralSimulator(sim, headOrientation);
     phi3 = estimateAzimuth(sim, 'BlackboardGmm.xml');                % LocationKS w head movements
     resetBinauralSimulator(sim, headOrientation);

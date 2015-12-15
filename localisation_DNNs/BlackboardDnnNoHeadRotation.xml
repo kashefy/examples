@@ -5,7 +5,7 @@
        <Param Type="double">16000</Param>
     </dataConnection>
 
-    <KS Name="loc" Type="DNNLocationKS">
+    <KS Name="loc" Type="DnnLocationKS">
         <Param Type="int">16</Param>
     </KS>
     <KS Name="conf" Type="ConfusionKS">
