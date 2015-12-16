@@ -64,7 +64,7 @@ title('Estimated soft mask for background noise.')
 for k = 2 : 4
     % Get hypotheses for current source
     softMask = hypotheses{end}.segmentationHypotheses(k).softMask;
-    position = hypotheses{end}.positionHypotheses(k - 1).sourcePosition;
+    position = hypotheses{end}.sourceAzimuthHypotheses(k - 1).sourceAzimuth;
     
     % Convert position from [rad] to [deg]
     position = position * 180 / pi;
