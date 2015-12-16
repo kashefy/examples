@@ -58,19 +58,19 @@ end % of main function
 
 function printLocalisationTableHeader()
     fprintf('\n');
-    fprintf('-------------------------------------------------------------------------------------------------------------------------------------------------\n');
-    fprintf('Source direction       DnnLocationKS w head rot.      DnnLocationKS wo head rot.      GmtkLocationKS w head rot.      GmtkLocationKS wo head rot.\n');
-    fprintf('-------------------------------------------------------------------------------------------------------------------------------------------------\n');
+    fprintf('------------------------------------------------------------------------------------------------------------------------------------\n');
+    fprintf('Source direction   DnnLocationKS w head rot.   DnnLocationKS wo head rot.   GmtkLocationKS w head rot.   GmtkLocationKS wo head rot.\n');
+    fprintf('------------------------------------------------------------------------------------------------------------------------------------\n');
 end
 
 function printLocalisationTableColumn(direction, phi1, phi2, phi3, phi4)
-    fprintf('%4.0f \t\t\t %4.0f \t\t\t %4.0f \t\t\t %4.0f \t\t\t %4.0f\n', ...
+    fprintf('     %4.0f              %4.0f                       %4.0f                        %4.0f                        %4.0f\n', ...
             wrapTo180(direction), wrapTo180(phi1), wrapTo180(phi2), ...
             wrapTo180(phi3), wrapTo180(phi4));
 end
 
 function printLocalisationTableFooter()
-    fprintf('----------------------------------------------------------------------------------------------------------------------------------------------\n');
+    fprintf('------------------------------------------------------------------------------------------------------------------------------------\n');
 end
 
 % vim: set sw=4 ts=4 expandtab textwidth=90 :
