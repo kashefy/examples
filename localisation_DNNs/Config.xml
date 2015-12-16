@@ -2,6 +2,6 @@
 <requirements>
     <TwoEarsPart branch="master"   sub="src" startup="startBinauralSimulator">binaural-simulator</TwoEarsPart>
     <TwoEarsPart branch="master"             startup="startAuditoryFrontEnd">auditory-front-end</TwoEarsPart>
-    <TwoEarsPart branch="localisation"             startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
+    <TwoEarsPart branch="location_to_azimuth_renaming"             startup="startBlackboardSystem">blackboard-system</TwoEarsPart>
     <TwoEarsPart                   sub="API_MO" startup="SOFAstart">sofa</TwoEarsPart>
 </requirements>

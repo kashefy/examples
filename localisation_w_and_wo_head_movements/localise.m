@@ -22,7 +22,7 @@ for direction = sourceAngles
     sim.rotateHead(0, 'absolute');
     sim.ReInit = true;
 
-    % LocationKS with head rotation for confusion solving
+    % GmtkLocationKS with head rotation for confusion solving
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);
     bbs.buildFromXml('Blackboard.xml');
@@ -37,7 +37,7 @@ for direction = sourceAngles
     sim.rotateHead(0, 'absolute');
     sim.ReInit = true;
 
-    % LocationKS without head rotation and confusion solving
+    % GmtkLocationKS without head rotation and confusion solving
     bbs = BlackboardSystem(0);
     bbs.setRobotConnect(sim);
     bbs.buildFromXml('BlackboardNoHeadRotation.xml');

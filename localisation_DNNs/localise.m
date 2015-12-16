@@ -38,9 +38,9 @@ for ii = 1:length(sourceAngles)
     resetBinauralSimulator(sim, headOrientation);
     phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DnnLocationKS wo head movements
     resetBinauralSimulator(sim, headOrientation);
-    phi3 = estimateAzimuth(sim, 'BlackboardGmm.xml');                % LocationKS w head movements
+    phi3 = estimateAzimuth(sim, 'BlackboardGmtk.xml');               % GmtkLocationKS w head movements
     resetBinauralSimulator(sim, headOrientation);
-    phi4 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');  % LocationKS wo head movements
+    phi4 = estimateAzimuth(sim, 'BlackboardGmtkNoHeadRotation.xml'); % GmtkLocationKS wo head movements
 
     printLocalisationTableColumn(direction, ...
                                  phi1 - headOrientation, ...
@@ -58,9 +58,9 @@ end % of main function
 
 function printLocalisationTableHeader()
     fprintf('\n');
-    fprintf('-----------------------------------------------------------------------------------------------------------------------------------------------\n');
-    fprintf('Source direction       DnnLocationKS w head rot.      DnnLocationKS wo head rot.      GmmLocationKS w head rot.      GmmLocationKS wo head rot.\n');
-    fprintf('-----------------------------------------------------------------------------------------------------------------------------------------------\n');
+    fprintf('-------------------------------------------------------------------------------------------------------------------------------------------------\n');
+    fprintf('Source direction       DnnLocationKS w head rot.      DnnLocationKS wo head rot.      GmtkLocationKS w head rot.      GmtkLocationKS wo head rot.\n');
+    fprintf('-------------------------------------------------------------------------------------------------------------------------------------------------\n');
 end
 
 function printLocalisationTableColumn(direction, phi1, phi2, phi3, phi4)
