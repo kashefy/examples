@@ -11,38 +11,52 @@ startTwoEars('Config.xml');
 % see:
 % http://twoears.aipa.tu-berlin.de/doc/latest/database/impulse-responses/#tu-berlin-telefunken-building-room-auditorium-3
 brirs = { ...
-    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src1_xs+0.00_ys+3.97.sofa'; ...
-    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src2_xs+4.30_ys+3.42.sofa'; ...
-    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src3_xs+2.20_ys-1.94.sofa'; ...
-    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src4_xs+0.00_ys+1.50.sofa'; ...
-    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa'; ...
-    'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa'; ...
+    'impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos1.sofa'; ...
+    'impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos2.sofa'; ...
+    'impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos3.sofa'; ...
+    'impulse_responses/twoears_kemar_adream/TWOEARS_KEMAR_ADREAM_pos4.sofa'; ...
     };
-headOrientation = 90; % towards y-axis (facing src1)
-sourceAngles = [90, 38.5, -41.4, 90, 120, 60] - headOrientation; % phi = atan2d(ys,xs)
+
+%headOrientation = -90; % towards y-axis (facing src1)
+%sourceAngles = [-90, -157, -141, -125] - headOrientation; % phi = atan2d(ys,xs)
+
+numberOfSources = 4;
 
 % === Initialise binaural simulator
 sim = setupBinauralSimulator();
 
 printLocalisationTableHeader();
 
-for ii = 1:length(sourceAngles)
+for ii = 1:length(brirs)
 
-    direction = sourceAngles(ii);
+    % Get metadata from BRIR
+    brir = SOFAload(xml.dbGetFile(brirs{ii}), 'nodata');
 
-    sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
-    sim.rotateHead(headOrientation, 'absolute');
-    sim.Init = true;
+    % Get listener head orientation from BRIR
+    tmp = SOFAconvertCoordinates(brir.ListenerView(40,:),'cartesian','spherical');
+    headOrientation = tmp(1);
 
-    phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');                % DnnLocationKS w head movements
-    resetBinauralSimulator(sim, headOrientation);
-    phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DnnLocationKS wo head movements
+    for jj = 1:size(brir.EmitterPosition,1); % loop over all loudspeakers
 
-    printLocalisationTableColumn(direction, ...
-                                 phi1 - headOrientation, ...
-                                 phi2 - headOrientation);
+        % Get source direction from BRIR
+        y = brir.EmitterPosition(jj, 2) - brir.ListenerPosition(2);
+        x = brir.EmitterPosition(jj, 1) - brir.ListenerPosition(1);
+        direction = atan2d(y, x) - headOrientation;
 
-    sim.ShutDown = true;
+        sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii}, jj);
+        sim.rotateHead(headOrientation, 'absolute');
+        sim.Init = true;
+
+        phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');                % DnnLocationKS w head movements
+        resetBinauralSimulator(sim, headOrientation);
+        phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DnnLocationKS wo head movements
+
+        printLocalisationTableColumn(direction, ...
+                                     phi1 - headOrientation, ...
+                                     phi2 - headOrientation);
+
+        sim.ShutDown = true;
+    end
 end
 
 printLocalisationTableFooter();
