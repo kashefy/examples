@@ -15,8 +15,9 @@ pipe.modelCreator.verbose( 'on' );
 pipe.trainset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist';
 pipe.testset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TestSet_1.flist';
 
-sc = dataProcs.SceneConfiguration(); % clean
-pipe.setSceneConfig( [sc] ); 
+sc = sceneConfig.SceneConfiguration();
+sc.addSource( sceneConfig.PointSource() );
+pipe.setSceneConfig( sc ); 
 
 fprintf( ['\nThe pipeline will now initialise, this may involve downloading'...
     ' the training and testing sound files from the online Two!Ears-database, if '...
