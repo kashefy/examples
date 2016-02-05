@@ -12,7 +12,7 @@ function phi = estimateAzimuth(sim, blackboardConfig)
 %   OUTPUT PARAMETERS
 %       phi              - estimated azimuth
 
-bbs = BlackboardSystem(1);
+bbs = BlackboardSystem(0);
 bbs.setRobotConnect(sim);
 bbs.buildFromXml(blackboardConfig);
 bbs.run();

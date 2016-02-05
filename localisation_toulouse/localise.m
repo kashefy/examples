@@ -20,8 +20,6 @@ brirs = { ...
 %headOrientation = -90; % towards y-axis (facing src1)
 %sourceAngles = [-90, -157, -141, -125] - headOrientation; % phi = atan2d(ys,xs)
 
-numberOfSources = 4;
-
 % === Initialise binaural simulator
 sim = setupBinauralSimulator();
 
@@ -32,10 +30,13 @@ for ii = 1:length(brirs)
     % Get metadata from BRIR
     brir = SOFAload(xml.dbGetFile(brirs{ii}), 'nodata');
 
-    % Get listener head orientation from BRIR
-    tmp = SOFAconvertCoordinates(brir.ListenerView(40,:),'cartesian','spherical');
-    headOrientation = tmp(1);
+    % Get 0 degree look head orientation from BRIR
+    nsteps = size(brir.ListenerView, 1);
+    headPos = SOFAconvertCoordinates(brir.ListenerView(ceil(nsteps/2),:),'cartesian','spherical');
+    headOrientation = headPos(1);
 
+    fprintf('Head position %d:\n', ii);
+    
     for jj = 1:size(brir.EmitterPosition,1); % loop over all loudspeakers
 
         % Get source direction from BRIR
@@ -47,9 +48,9 @@ for ii = 1:length(brirs)
         sim.rotateHead(headOrientation, 'absolute');
         sim.Init = true;
 
-        phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');                % DnnLocationKS w head movements
+        phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml'); % DnnLocationKS w head movements
         resetBinauralSimulator(sim, headOrientation);
-        phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DnnLocationKS wo head movements
+        phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml'); % DnnLocationKS wo head movements
 
         printLocalisationTableColumn(direction, ...
                                      phi1 - headOrientation, ...
