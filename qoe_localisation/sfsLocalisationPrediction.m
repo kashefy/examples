@@ -64,9 +64,9 @@ for ii = experimentNumber
     humanLabels = readHumanLabels(humanLabelFiles{ii});
 
     fprintf(1, '\n');
-    fprintf(1, '----------------------------------------------------------------------------------------------\n');
-    fprintf(1, 'condition \t\t\t\t\t experiment \t DnnLocationKS \t ItdLocationKS\n');
-    fprintf(1, '----------------------------------------------------------------------------------------------\n');
+    fprintf(1, '--------------------------------------------------------------------------------------------------------------\n');
+    fprintf(1, 'condition \t\t\t\t\t experiment \t DnnLocationKS \t GmmLocationKS \t ItdLocationKS\n');
+    fprintf(1, '--------------------------------------------------------------------------------------------------------------\n');
 
     for ii = 1:size(humanLabels, 1)
 
@@ -106,6 +106,21 @@ for ii = experimentNumber
         % Adjust head rotation offset from experiment
         azimuthDnn(ii) = azimuthDnn(ii) + headRotationOffset;
 
+        % Localise with GmmLocationKS
+        sim.ReInit = true;
+        bbs = BlackboardSystem(0);
+        bbs.setRobotConnect(sim);
+        bbs.buildFromXml('BlackboardGmm.xml');
+        % Run blackboard
+        bbs.run();
+
+        predictedAzimuths = bbs.blackboard.getData('perceivedAzimuths');
+        %displayLocalisationResults(predictedAzimuths, perceivedAzimuth);
+        azimuthGmm(ii) = ...
+            evaluateLocalisationResults(predictedAzimuths, physicalAzimuth(ii));
+        % Adjust head rotation offset from experiment
+        azimuthGmm(ii) = azimuthGmm(ii) + headRotationOffset;
+
         % Localise with ItdLocationKS
         sim.ReInit = true;
         bbs = BlackboardSystem(0);
@@ -125,14 +140,15 @@ for ii = experimentNumber
 
         % Display results
         [~, condition] = fileparts(brsFile);
-        fprintf(1, '%s\t %4.0f deg\t %4.0f deg\t %4.0f deg\n', condition, ...
+        fprintf(1, '%s\t %4.0f deg\t %4.0f deg\t %4.0f deg\t %4.0f deg\n', condition, ...
             wrapTo180(perceivedAzimuth(ii)), ...
             wrapTo180(azimuthDnn(ii)), ...
+            wrapTo180(azimuthGmm(ii)), ...
             wrapTo180(azimuthItd(ii)));
 
     end
 
-    fprintf(1, '----------------------------------------------------------------------------------------------\n');
+    fprintf(1, '--------------------------------------------------------------------------------------------------------------\n');
     fprintf(1, '\n\n');
 
 end
