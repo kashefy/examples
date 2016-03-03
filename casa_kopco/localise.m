@@ -46,7 +46,7 @@ sim.ShutDown = true;
 % Get signal
 sigObj = bbs.getAfeData('time');
 sig = [sigObj{1}.getSignalBlock(1) sigObj{2}.getSignalBlock(1)];
-audiowrite('debug.wav', sig, sim.SampleRate);
+audiowrite('debug.wav', sig, 16000);
 
 
 end % of main function
