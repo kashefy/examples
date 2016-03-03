@@ -4,7 +4,7 @@
     SampleRate="44100"
     MaximumDelay="0.0"
     NumberOfThreads="1"
-    LengthOfSimulation = "1"
+    LengthOfSimulation = "1.1"
     HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa">
     <source
         Name="Loudspeaker_1"
