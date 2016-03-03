@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene
+    BlockSize="4096"
+    SampleRate="44100"
+    MaximumDelay="0.0"
+    NumberOfThreads="1"
+    LengthOfSimulation = "1"
+    HRIRs="impulse_responses/qu_kemar_anechoic/QU_KEMAR_anechoic_2m.sofa">
+    <source
+        Name="Loudspeaker_1"
+        Type="point"
+        Position="1.48 0.26 0.00">
+        <buffer ChannelMapping="1"
+            Type="fifo"/>
+    </source>
+    <source
+        Name="Loudspeaker_18"
+        Type="point"
+        Position="0.00 1.50 0.00">
+        <buffer ChannelMapping="1"
+            Type="fifo"/>
+    </source>
+    <source
+        Name="Loudspeaker_37"
+        Type="point"
+        Position="0.00 -1.50 0.00">
+        <buffer ChannelMapping="1"
+            Type="fifo"/>
+    </source>
+  <sink Name="Head"
+        Position="0 0 0"
+        UnitX="1 0 0"
+        UnitZ="0 0 1"/>
+</scene>
