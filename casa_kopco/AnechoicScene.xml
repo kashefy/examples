@@ -11,21 +11,21 @@
         Type="point"
         Position="1.48 0.26 0.00">
         <buffer ChannelMapping="1"
-            Type="fifo"/>
+            Type="ring"/>
     </source>
     <source
         Name="Loudspeaker_18"
         Type="point"
         Position="0.00 1.50 0.00">
         <buffer ChannelMapping="1"
-            Type="fifo"/>
+            Type="ring"/>
     </source>
     <source
         Name="Loudspeaker_37"
         Type="point"
         Position="0.00 -1.50 0.00">
         <buffer ChannelMapping="1"
-            Type="fifo"/>
+            Type="ring"/>
     </source>
   <sink Name="Head"
         Position="0 0 0"
