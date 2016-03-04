@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blackboardsystem>
 
-    <!--<dataConnection Type="AuditoryFrontEndKS"/>
-
-    <KS Name="loc" Type="GmtkLocationKS">
-        <Param Type="char">default</Param>
-    </KS>-->
-
-    <dataConnection Type="AuditoryFrontEndKS">
-       <Param Type="double">16000</Param>
-    </dataConnection>
+    <dataConnection Type="AuditoryFrontEndKS"/>
 
     <KS Name="loc" Type="GmmLocationKS"/>
     <KS Name="conf" Type="ConfusionKS"/>
