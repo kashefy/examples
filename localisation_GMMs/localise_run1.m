@@ -24,46 +24,22 @@ sourceAngles = [90, 38.5, -41.4, 90, 120, 60] - headOrientation; % phi = atan2d(
 % === Initialise binaural simulator
 sim = setupBinauralSimulator();
 
-printLocalisationTableHeader();
-
-for ii = 1:length(sourceAngles)
-
-    direction = sourceAngles(ii);
+set(sim, 'LengthOfSimulation', 1);
+fprintf('---- Length of simulation is 1 second\n');
+fprintf('     Run localisation once\n');
+fprintf('     Plotting block signals in Figure 1\n');
+figure(1)
+for ii = 4
 
     sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
     sim.rotateHead(headOrientation, 'absolute');
     sim.Init = true;
 
-    phi1 = estimateAzimuth(sim, 'BlackboardGmm.xml');                % GmmLocationKS w head movements
-    resetBinauralSimulator(sim, headOrientation);
-    phi2 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');  % GmmLocationKS wo head movements
-
-    printLocalisationTableColumn(direction, ...
-                                 phi1 - headOrientation, ...
-                                 phi2 - headOrientation);
+    estimateAzimuth(sim, 'BlackboardGmm.xml');
 
     sim.ShutDown = true;
 end
 
-printLocalisationTableFooter();
 
 
 end % of main function
-
-function printLocalisationTableHeader()
-    fprintf('\n');
-    fprintf('-------------------------------------------------------------------------\n');
-    fprintf('Source direction   GmmLocationKS w head rot.   GmmLocationKS wo head rot.\n');
-    fprintf('-------------------------------------------------------------------------\n');
-end
-
-function printLocalisationTableColumn(direction, phi1, phi2)
-    fprintf('     %4.0f              %4.0f                       %4.0f\n', ...
-            wrapTo180(direction), wrapTo180(phi1), wrapTo180(phi2));
-end
-
-function printLocalisationTableFooter()
-    fprintf('------------------------------------------------------------------------\n');
-end
-
-% vim: set sw=4 ts=4 expandtab textwidth=90 :
