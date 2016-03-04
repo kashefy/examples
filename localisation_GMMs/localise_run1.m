@@ -35,7 +35,7 @@ for ii = 4
     sim.rotateHead(headOrientation, 'absolute');
     sim.Init = true;
 
-    estimateAzimuth(sim, 'BlackboardGmm.xml');
+    estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');
 
     sim.ShutDown = true;
 end
