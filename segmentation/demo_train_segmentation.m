@@ -23,7 +23,7 @@ ksName = 'DemoKS';
 % parameters. The specification of these parameters is optional. If no
 % parameters are set, training will be conducted using default settings,
 % which are specified in the corresponding KS class.
-nChannels = 32;             % Number of filterbank channels
+nChannels = 16;             % Number of filterbank channels
 winSize = 0.02;             % Size of the processing window in [s]
 hopSize = 0.01;             % Frame shift in [s]
 fLow = 80;                  % Lowest filterbank center frequency in [Hz]
