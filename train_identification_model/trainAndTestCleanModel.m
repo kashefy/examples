@@ -1,15 +1,23 @@
 function trainAndTestCleanModel( classname )
-
+% TRAINANDTESTCLEANMODEL  Train and test a model to classify sounds
+%   TRAINANDTESTCLEANMODEL() train and test a model to classify 'speech'
+%   sounds
+%   TRAINANDTESTCLEANMODEL(classname) train and test a model to classify
+%   classname sounds (e.g. 'speech')
+%
 if nargin < 1, classname = 'speech'; end;
 
+% Set up the Two!Ears platform with the given configuration file.
+% The configuration file checks the compatibility of this example with the
+% required Two!Ears modules.
 startTwoEars( 'Config.xml' );
 
-pipe = TwoEarsIdTrainPipe();
-pipe.featureCreator = featureCreators.FeatureSet1Blockmean();
+pipe = TwoEarsIdTrainPipe(); % instantiate the training pipeline
+pipe.featureCreator = featureCreators.FeatureSet1Blockmean(); % specify feature set
 pipe.modelCreator = modelTrainers.GlmNetLambdaSelectTrainer( ...
     'performanceMeasure', @performanceMeasures.BAC2, ...
     'cvFolds', 7, ...
-    'alpha', 0.99 );
+    'alpha', 0.99 ); % LASSO
 pipe.modelCreator.verbose( 'on' );
 
 pipe.trainset = 'learned_models/IdentityKS/trainTestSets/IEEE_AASP_80pTrain_TrainSet_1.flist';
