@@ -5,7 +5,7 @@
        <Param Type="double">16000</Param>
     </dataConnection>
 
-    <KS Name="loc" Type="DnnLocationKS" />
+    <KS Name="loc" Type="DnnLocationKS"/>
     <KS Name="conf" Type="ConfusionKS"/>
     <KS Name="confSolv" Type="ConfusionSolvingKS"/>
     <KS Name="rot" Type="RotationKS">
