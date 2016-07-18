@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<categoryStructure>    
+        <pair parameter="fov" value="30"> </pair>
+
+        <pair parameter="distance_max" value="4"> </pair>
+
+        <pair parameter="epsilon" value="0.3"> </pair>
+
+        <pair parameter="lambda" value="0.7"> </pair>
+
+        <pair parameter="smoothing" value="1"> </pair>
+
+        <pair parameter="cpt_object" value="30"> </pair>
+
+        <pair parameter="cpt_silence" value="10"> </pair>
+
+        <pair parameter="q" value="0.8"> </pair>
+
+        <pair parameter="notification" value="notification.wav"> </pair>
+        
+</categoryStructure>
