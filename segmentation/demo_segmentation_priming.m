@@ -48,7 +48,7 @@ figure(1)
 for k = 1 : 3
     % Get hypotheses for current source
     softMask = segmentationHypotheses.data(k).softMask;
-    position = sourceAzimuthHypotheses.data(k).sourceAzimuth
+    position = sourceAzimuthHypotheses.data(k).sourceAzimuth;
     
     % Convert position from [rad] to [deg]
     position = position * 180 / pi;
