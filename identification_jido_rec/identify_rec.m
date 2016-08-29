@@ -28,7 +28,7 @@ labels_cat = [labels_cat{:}];
 mixture_onOffSets_cat = cat(1, mixture_onOffSets{:});
 
 % === Initialize Interface to Jido Recording
-jido = JidoRecInterface(fpath_mixture_mat, fpath_mixture_wav);
+jido = JidoRecInterface(fpath_mixture_mat);
 
 % === Initialise and run model(s)
 disp( 'Building blackboard system...' );
