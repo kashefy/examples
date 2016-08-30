@@ -1,4 +1,4 @@
-function [idLabels, perf] = identify_rec(idModels, data_dir, fpath_mixture_mat)
+function [idLabels, perf] = identify_rec(idModels, data_dir, fpath_mixture_mat, session_onOffSet)
 %IDENTIFY identifies sources detected in a recording and returns predicted
 % source labels as well as corresponding ground truth (correct source
 % label)
@@ -6,6 +6,7 @@ function [idLabels, perf] = identify_rec(idModels, data_dir, fpath_mixture_mat)
 %warning('off', 'all');
 disp( 'Initializing Two!Ears, setting up interface to mixture recorded from the robot...' );
 startTwoEars('Config.xml');
+startIdentificationTraining;
 
 [~, fname, ext] = fileparts(fpath_mixture_mat);
 if strcmp(ext, '.mat')
@@ -29,6 +30,16 @@ mixture_onOffSets_cat = cat(1, mixture_onOffSets{:});
 
 % === Initialize Interface to Jido Recording
 jido = JidoRecInterface(fpath_mixture_mat);
+if numel(session_onOffSet) > 0
+    jido.seekTime(session_onOffSet(1));
+    mixture_onOffSets_cat = mixture_onOffSets_cat - session_onOffSet(1);
+    for ii = 1:numel(mixture_onOffSets)
+        mixture_onOffSets{ii} = mixture_onOffSets{ii} - session_onOffSet(1);
+    end
+end
+if numel(session_onOffSet) > 1 && ~isinf(session_onOffSet(2))
+    jido.setEndTime(session_onOffSet(2));
+end
 
 % === Initialise and run model(s)
 disp( 'Building blackboard system...' );
