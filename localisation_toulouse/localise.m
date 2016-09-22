@@ -26,7 +26,7 @@ printLocalisationTableHeader();
 for ii = 1:length(brirs)
 
     % Get metadata from BRIR
-    brir = SOFAload(xml.dbGetFile(brirs{ii}), 'nodata');
+    brir = SOFAload(db.getFile(brirs{ii}), 'nodata');
 
     % Get 0 degree look head orientation from BRIR
     nsteps = size(brir.ListenerView, 1);
