@@ -7,8 +7,6 @@
 
         <pair parameter="q" value="0.7"> </pair>
 
-        <pair parameter="notification" value="notification.wav"> </pair>
-
         <pair parameter="nb_sources" value="5"> </pair>
         
 </categoryStructure>
