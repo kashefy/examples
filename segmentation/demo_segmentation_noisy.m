@@ -38,11 +38,12 @@ bbs.run();
 set(sim, 'ShutDown', true);
 
 % Get segmentation results and plot them
-hypotheses = bbs.blackboard.data.values;
+segmentationHypotheses = bbs.blackboard.getLastData('segmentationHypotheses');
+sourceAzimuthHypotheses = bbs.blackboard.getLastData('sourceAzimuthHypotheses');
 
 figure(1)
 % Get background noise hypothesis (first hypothesis element)
-softMask = hypotheses{end}.segmentationHypotheses(1).softMask;
+softMask = segmentationHypotheses.data(1).softMask;
 
 % Get number of frames/channels and compute time and frequency-scales
 [nFrames, nChannels] = size(softMask);
@@ -62,8 +63,8 @@ title('Estimated soft mask for background noise.')
 % Plot results for sound sources
 for k = 2 : 4
     % Get hypotheses for current source
-    softMask = hypotheses{end}.segmentationHypotheses(k).softMask;
-    position = hypotheses{end}.sourceAzimuthHypotheses(k - 1).sourceAzimuth;
+    softMask = segmentationHypotheses.data(k).softMask;
+    position = sourceAzimuthHypotheses.data(k-1).sourceAzimuth;
     
     % Convert position from [rad] to [deg]
     position = position * 180 / pi;

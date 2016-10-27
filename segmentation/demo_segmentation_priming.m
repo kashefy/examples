@@ -41,13 +41,14 @@ bbs.run();
 set(sim, 'ShutDown', true);
 
 % Get segmentation results and plot them
-hypotheses = bbs.blackboard.data.values;
+segmentationHypotheses = bbs.blackboard.getLastData('segmentationHypotheses');
+sourceAzimuthHypotheses = bbs.blackboard.getLastData('sourceAzimuthHypotheses');
 
 figure(1)
 for k = 1 : 3
     % Get hypotheses for current source
-    softMask = hypotheses{end}.segmentationHypotheses(k).softMask;
-    position = hypotheses{end}.sourceAzimuthHypotheses(k).sourceAzimuth;
+    softMask = segmentationHypotheses.data(k).softMask;
+    position = sourceAzimuthHypotheses.data(k).sourceAzimuth;
     
     % Convert position from [rad] to [deg]
     position = position * 180 / pi;
