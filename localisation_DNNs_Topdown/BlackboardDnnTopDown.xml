@@ -5,10 +5,20 @@
        <Param Type="double">16000</Param>
     </dataConnection>
 
-    <KS Name="loc" Type="DnnLocationTopdownKS"/>
-    <KS Name="conf" Type="ConfusionKS"/>
-    <KS Name="confSolv" Type="ConfusionSolvingKS"/>
-    <KS Name="rot" Type="RotationKS">
+    <KS Name="seg" Type="FactorialSourceModelKS">
+        <!-- target (target speech) -->
+        <Param Type="char">target</Param>
+    </KS>
+    
+    <KS Name="loc" Type="DnnLocationKS">
+        <!-- Use MCT-DIFFUSE for full 360 localisation -->
+        <Param Type="char">MCT-DIFFUSE</Param>
+    </KS>
+    <KS Name="locDec" Type="LocalisationDecisionKS">
+        <!-- set to 1 to enable confusion solving (== head rotation) -->
+        <Param Type="int">1</Param>
+    </KS>
+    <KS Name="rot" Type="HeadRotationKS">
         <Param Type="ref">robotConnect</Param>
     </KS>
 
@@ -16,21 +26,21 @@
         <source>scheduler</source>
         <sink>dataConnect</sink>
     </Connection>
-    <Connection Mode="replaceOld">
+    <Connection Mode="add">
         <source>dataConnect</source>
+        <sink>seg</sink>
+    </Connection>
+    <Connection Mode="add">
+        <source>seg</source>
         <sink>loc</sink>
     </Connection>
     <Connection Mode="add">
         <source>loc</source>
-        <sink>conf</sink>
+        <sink>locDec</sink>
     </Connection>
-    <Connection Mode="replaceOld" Event="ConfusedLocations">
-        <source>conf</source>
+    <Connection Mode="replaceOld" Event="RotateHead">
+        <source>locDec</source>
         <sink>rot</sink>
-    </Connection>
-    <Connection Mode="add" Event="ConfusedLocations">
-        <source>conf</source>
-        <sink>confSolv</sink>
     </Connection>
 
 </blackboardsystem>
