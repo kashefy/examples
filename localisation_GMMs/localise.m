@@ -16,8 +16,8 @@ brirs = { ...
     'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src5_xs-0.75_ys+1.30.sofa'; ...
     'impulse_responses/qu_kemar_rooms/auditorium3/QU_KEMAR_Auditorium3_src6_xs+0.75_ys+1.30.sofa'; ...
     };
-headOrientation = 90; % towards y-axis (facing src1)
-sourceAngles = [90, 38.5, -41.4, 90, 120, 60] - headOrientation; % phi = atan2d(ys,xs)
+robotOrientation = 90; % towards y-axis (facing src1)
+sourceAngles = [90, 38.5, -41.4, 90, 120, 60] - robotOrientation;
 
 % === Initialise binaural simulator
 sim = setupBinauralSimulator();
@@ -29,16 +29,15 @@ for ii = 1:length(sourceAngles)
     direction = sourceAngles(ii);
 
     sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
-    sim.rotateHead(headOrientation, 'absolute');
+    sim.rotateHead(0, 'absolute');
     sim.Init = true;
+    phi1 = estimateAzimuth(sim, 'BlackboardGmm.xml');                % DnnLocationKS w head movements
+    
+    sim.rotateHead(0, 'absolute');
+    sim.ReInit = true;
+    phi2 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');  % DnnLocationKS wo head movements
 
-    phi1 = estimateAzimuth(sim, 'BlackboardGmm.xml');                % GmmLocationKS w head movements
-    resetBinauralSimulator(sim, headOrientation);
-    phi2 = estimateAzimuth(sim, 'BlackboardGmmNoHeadRotation.xml');  % GmmLocationKS wo head movements
-
-    printLocalisationTableColumn(direction, ...
-                                 phi1 - headOrientation, ...
-                                 phi2 - headOrientation);
+    printLocalisationTableColumn(direction, phi1, phi2);
 
     sim.ShutDown = true;
 end
