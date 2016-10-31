@@ -27,12 +27,14 @@ printLocalisationTableHeader();
 for ii = 1:length(sourceAngles)
 
     direction = sourceAngles(ii);
-
     sim.Sources{1}.IRDataset = simulator.DirectionalIR(brirs{ii});
+    
+    sim.moveRobot(0, 0, robotOrientation);
     sim.rotateHead(0, 'absolute');
     sim.Init = true;
     phi1 = estimateAzimuth(sim, 'BlackboardDnn.xml');                % DnnLocationKS w head movements
     
+    sim.moveRobot(0, 0, robotOrientation);
     sim.rotateHead(0, 'absolute');
     sim.ReInit = true;
     phi2 = estimateAzimuth(sim, 'BlackboardDnnNoHeadRotation.xml');  % DnnLocationKS wo head movements
