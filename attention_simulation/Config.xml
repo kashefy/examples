@@ -11,19 +11,21 @@
 
         <pair parameter="smoothing" value="1"> </pair>
 
-        <pair parameter="cpt_object" value="30"> </pair>
+        <pair parameter="cpt_object" value="20"> </pair>
 
-        <pair parameter="cpt_silence" value="10"> </pair>
+        <pair parameter="cpt_silence" value="5"> </pair>
 
-        <pair parameter="q" value="0.7"> </pair>
+        <pair parameter="q" value="1"> </pair>
 
         <pair parameter="notification" value="notification.wav"> </pair>
 
         <pair parameter="nb_sources" value="5"> </pair>
 
-        <pair parameter="nb_steps" value="100"> </pair>
+        <pair parameter="nb_steps" value="1000"> </pair>
 
-        <pair parameter="avpairs" value="[1:5:20]"> </pair>
+        <pair parameter="avpairs" value="[1:8:20]"> </pair>
+
+        <!-- <pair parameter="EMKS" value="1"> </pair> -->
 
         <!-- <pair parameter="folder_path" value="notification.wav"> </pair> -->
         
