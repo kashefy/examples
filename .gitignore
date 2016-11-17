@@ -17,3 +17,5 @@ traincommand
 tricommand
 jtcommand
 *.swp
+
+attention_simulation/Config.xml
