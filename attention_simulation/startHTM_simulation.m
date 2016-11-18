@@ -11,11 +11,14 @@ htm = HeadTurningModulationKS('Save', true);
 % --- Don't bother checking regularly if the simulation is over: a notification is played once it is ;)
 
 RIR = htm.RIR;
-MOKS = htm.MOKS;
+env = getEnvironment(htm, 0);
 MFI = htm.MFI;
+DW = htm.DW;
 MSOM = htm.MSOM;
-ENV = RIR.getEnv();
+
 ODKS = htm.ODKS;
+FCKS = htm.FCKS;
+MOKS = htm.MOKS;
 
 % --- Once the simulation is over, statistics on the HTM performances are computed.
 % --- 'plotGoodClassif': will plot the average good classification over time versus a naive fusion algorithm (to be changed soon)

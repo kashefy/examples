@@ -5,17 +5,17 @@
 
         <pair parameter="distance_max" value="9"> </pair>
 
-        <pair parameter="epsilon" value="0.35"> </pair>
+        <pair parameter="epsilon" value="0.2"> </pair>
 
         <pair parameter="lambda" value="0.7"> </pair>
 
         <pair parameter="smoothing" value="1"> </pair>
 
-        <pair parameter="cpt_object" value="20"> </pair>
+        <pair parameter="cpt_object" value="[15, 35]"> </pair>
 
-        <pair parameter="cpt_silence" value="5"> </pair>
+        <pair parameter="cpt_silence" value="[5, 15]"> </pair>
 
-        <pair parameter="q" value="1"> </pair>
+        <pair parameter="q" value="0.74"> </pair>
 
         <pair parameter="notification" value="notification.wav"> </pair>
 
@@ -23,7 +23,7 @@
 
         <pair parameter="nb_steps" value="1000"> </pair>
 
-        <pair parameter="avpairs" value="[1:8:20]"> </pair>
+        <pair parameter="avpairs" value="[1:5:20]"> </pair>
 
         <!-- <pair parameter="EMKS" value="1"> </pair> -->
 
